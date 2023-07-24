@@ -10,9 +10,7 @@ setInterval(function() {
 
   async function getAllWords() {
     try {
-        const random = Math.floor(Math.random() * json.words.length);
-        console.log(json.words[random]);
-        return json.words[random];
+        return json.words;
       } catch(error) {
       console.log(error);
       }
