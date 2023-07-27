@@ -1,12 +1,13 @@
   const json = require('./words.json');
 
-word_day ='test'
+word_day =''
 day = ''
 list_day =''
+last_update =''
 
 setInterval(function() {
   word_day = GetRandomWord();
-}, 1000 * 60); // intervalle de 24h exprimé en millisecondes
+}, 12 * 60 * 60 * 1000); // 12 heures * 60 minutes * 60 secondes * 1000 millisecondes
 
   async function getAllWords() {
     try {
@@ -44,9 +45,9 @@ setInterval(function() {
       }
   }
 
-  async function getWordsOfLength(id) {
+  async function getWordsOfLength(len) {
     try {
-      let length = id;
+      let length = len;
       let word_list = [];
       json.words.forEach(word => {
         if(word.length == length) {

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
+    <title>French words API</title>
+</head>
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            width: 100%;
+            height: 100vh;
+            background-image: url('./assets/bg.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+        .home{
+               display: flex; 
+               flex-direction: column;
+               justify-content: center;
+               align-items: center;
+               gap: 1rem;
+               background: rgba(0, 0, 0, 0.221);
+               width: 100%;
+               height: 100%;
+        }
+        .request{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(128, 128, 128, 0.547);
+            padding: 2rem;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.364);
+            text-decoration: none;
+            width: 30%;
+            transition: 0.3s ease-in-out;
+        }
+        .request:hover{
+            border: 2px solid rgb(19, 0, 127);
+        }
+        .type_req{
+            font-size: 1.5rem;
+
+        }
+        .url{
+            color: rgb(16, 7, 67);
+        }
+        .desc_req{
+            color: rgb(255, 255, 255);
+            float: right;
+        }
+        .get{
+            color: #00ff00;
+        }
+        .link{
+            display: flex;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            gap: 0.4rem;
+        }
+        .link img{
+            width: 48px;
+        }
+    </style>
+    <div class="home">
+        <img src="./assets/logo.svg" alt="" srcset="">
+        <a href="/day" class="request">
+            <span class="type_req get">GET</span>
+            <span class="url">/day</span>
+            <span class="desc_req">Get word of the day</span>
+        </a>
+        <a href="/words" class="request">
+            <span class="type_req get">GET</span>
+            <span class="url">/words</span>
+            <span class="desc_req">Get all the french words</span>
+        </a>
+        <a href="/word/6" class="request">
+            <span class="type_req get">GET</span>
+            <span class="url">/word/:length</span>
+            <span class="desc_req">Get word(s) who have the same length</span>
+        </a>
+        <a href="/day/suite" class="request">
+            <span class="type_req get">GET</span>
+            <span class="url">/day/suite</span>
+            <span class="desc_req">Get suite of words of the day</span>
+        </a>
+        <p class="link">👋 - Roche Sébastien -  <a href="https://github.com/rochesebastien/french_words_api" target="_blank"><img src="./assets/github.svg" alt=""></a></p>
+    </div>
+</body>
+</html>
