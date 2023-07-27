@@ -2,7 +2,9 @@
 [![](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/fr)
 [![](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://wikipedia.org/wiki/JavaScript)
 [![](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/)
+[![](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com)
 [![](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com)
+
 
 🎯 API URL - https://french-words-api.vercel.app
 
@@ -19,6 +21,7 @@ It was made for another personal project that you can see here:
 - Can get a random word among all French words
 - Can get a word that changes every 12 hours
 - Can get a sequence of words that changes every 12 hours
+
 
 
 # Get started
@@ -53,4 +56,4 @@ npm run start
 You are free to download this API for your project, but if you do it, please credits me somewhere and link to this repository. Thanks you
 
 ---
-Roche Sébastien
+Roche Sébastien - 2023
