@@ -1,70 +1,97 @@
-  const json = require('./words.json');
+const json = require('./words.json');
 
-word_day =''
-day = ''
-list_day =''
-last_update =''
+const dotenv = require('dotenv');
+dotenv.config();
 
-setInterval(function() {
-  word_day = GetRandomWord();
-}, 12 * 60 * 60 * 1000); // 12 heures * 60 minutes * 60 secondes * 1000 millisecondes
 
-  async function getAllWords() {
-    try {
-        return json.words;
-      } catch(error) {
-      console.log(error);
+// word_day = ''
+// day = ''
+// list_day = []
+// last_update = ''
+
+
+async function getAllWords() {
+  try {
+    return json.words;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function GetRandomWord() {
+  try {
+    const random = Math.floor(Math.random() * json.words.length);
+    return json.words[random];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getWordOfTheDay() {
+  try {
+    alert(process.env[WORD_TODAY])
+    return process.env[WORD_TODAY] || "Non";
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function generateWordOfTheDay() {
+  if (word_day == "") {
+    word_day = await GetRandomWord()
+  }
+  word_day = word_day
+  return word_day
+}
+
+async function getListOfTheDay() {
+  try {
+    return list_day;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function generateListOfTheDay() {
+  try {
+    list_day = []
+    for (let i = 0; i < 5; i++) {
+      let previous = list_day[i-1] ? list_day[i-1] : ''
+      let next = await this.GetRandomWord();
+      console.log(next);
+      if (previous != next) {
+        list_day.push(next);
       }
+    }
+    list_day = list_day
+    return list_day;
+  } catch (error) {
+    console.log(error);
   }
+}
 
-  async function GetRandomWord() {
-      try {
-          const random = Math.floor(Math.random() * json.words.length);
-          return json.words[random];
-        } catch(error) {
-        console.log(error);
-        }
-  }
-
-  async function getWordOfTheDay() {
-    return word_day
-  }
-
-  async function getListOfTheDayWords() {
-    try {
-      for (let i = 0; i < 5; i++) {
-        let previous = ""
-        let next  = GetRandomWord();
-        if(previous != next) {
-          list_day.push(next);
-        }
+async function getWordsOfLength(len) {
+  try {
+    let length = len;
+    let word_list = [];
+    json.words.forEach(word => {
+      if (word.length == length) {
+        word_list.push(word);
       }
-        return day_list;
-      } catch(error) {
-      console.log(error);
-      }
-  }
+    });
+    return word_list;
 
-  async function getWordsOfLength(len) {
-    try {
-      let length = len;
-      let word_list = [];
-      json.words.forEach(word => {
-        if(word.length == length) {
-          word_list.push(word);
-        }
-      });
-      return word_list;
-
-      } catch(error) {
-      console.log(error);
-      }
+  } catch (error) {
+    console.log(error);
   }
+}
 
-  module.exports = {
-    GetRandomWord,
-    getListOfTheDayWords,
-    getAllWords,
-    getWordsOfLength,
-    getWordOfTheDay
-  }
+module.exports = {
+  GetRandomWord,
+  getListOfTheDay,
+  getAllWords,
+  getWordsOfLength,
+  getWordOfTheDay,
+  generateWordOfTheDay,
+  generateListOfTheDay
+}

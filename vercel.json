@@ -11,5 +11,14 @@
         "src": "/(.*)",
         "dest": "index.js"
       }
-    ]
+    ],
+    "crons": [{
+      "path": "/day/update",
+      "schedule": "0 0 * * *"
+    },
+  {
+    "path": "/day/suite/update",
+    "schedule": "0 0 * * *"
+  }
+  ]
   }
