@@ -1,13 +1,6 @@
 const json = require('./words.json');
-
-const dotenv = require('dotenv');
-dotenv.config();
-
-
-// word_day = ''
-// day = ''
-// list_day = []
-// last_update = ''
+const today = require('./today.json');
+const fs = require('fs');
 
 
 async function getAllWords() {
@@ -29,24 +22,50 @@ async function GetRandomWord() {
 
 async function getWordOfTheDay() {
   try {
-    alert(process.env[WORD_TODAY])
-    return process.env[WORD_TODAY] || "Non";
+    return today.day;
   } catch (error) {
     console.log(error);
   }
 }
 
 async function generateWordOfTheDay() {
-  if (word_day == "") {
-    word_day = await GetRandomWord()
-  }
-  word_day = word_day
-  return word_day
+
+
+  // Lire le contenu du fichier JSON
+  fs.readFile('today.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error('Erreur lors de la lecture du fichier :', err);
+    } else {
+      try {
+        // Convertir le contenu du fichier en objet JavaScript
+        const jsonData = JSON.parse(data);
+  
+        // Mettre à jour la valeur de "suite_day"
+        jsonData.suite_day = ['kk', 'kk new'];
+  
+        // Convertir l'objet mis à jour en JSON (chaîne de caractères JSON)
+        const updatedJsonData = JSON.stringify(jsonData, null, 2);
+  
+        // Écrire le JSON mis à jour dans le fichier
+        fs.writeFile('today.json', updatedJsonData, (err) => {
+          if (err) {
+            console.error('Erreur lors de l\'écriture du fichier :', err);
+          } else {
+            console.log('Le fichier today.json a été mis à jour avec succès !');
+          }
+        });
+        return today.suite_day;
+      } catch (parseError) {
+        console.error('Erreur lors de l\'analyse du fichier JSON :', parseError);
+      }
+    }
+  });
+  
 }
 
 async function getListOfTheDay() {
   try {
-    return list_day;
+    return today.suite_day;
   } catch (error) {
     console.log(error);
   }
