@@ -1,6 +1,9 @@
 const json = require('./words.json');
 const today = require('./today.json');
+
 const fs = require('fs');
+const fileName = './today.json';
+const file = require(fileName);
 
 
 async function getAllWords() {
@@ -29,38 +32,13 @@ async function getWordOfTheDay() {
 }
 
 async function generateWordOfTheDay() {
-
-
-  // Lire le contenu du fichier JSON
-  fs.readFile('today.json', 'utf8', (err, data) => {
-    if (err) {
-      console.error('Erreur lors de la lecture du fichier :', err);
-    } else {
-      try {
-        // Convertir le contenu du fichier en objet JavaScript
-        const jsonData = JSON.parse(data);
-  
-        // Mettre à jour la valeur de "suite_day"
-        jsonData.suite_day = ['kk', 'kk new'];
-  
-        // Convertir l'objet mis à jour en JSON (chaîne de caractères JSON)
-        const updatedJsonData = JSON.stringify(jsonData, null, 2);
-  
-        // Écrire le JSON mis à jour dans le fichier
-        fs.writeFile('today.json', updatedJsonData, (err) => {
-          if (err) {
-            console.error('Erreur lors de l\'écriture du fichier :', err);
-          } else {
-            console.log('Le fichier today.json a été mis à jour avec succès !');
-          }
-        });
-        return today.suite_day;
-      } catch (parseError) {
-        console.error('Erreur lors de l\'analyse du fichier JSON :', parseError);
-      }
-    }
-  });
-  
+  try {
+    file.day = await GetRandomWord();
+    updateJsonFile(file);
+    return file.day;
+  } catch (error) {
+    return error;
+  }
 }
 
 async function getListOfTheDay() {
@@ -73,17 +51,10 @@ async function getListOfTheDay() {
 
 async function generateListOfTheDay() {
   try {
-    list_day = []
-    for (let i = 0; i < 5; i++) {
-      let previous = list_day[i-1] ? list_day[i-1] : ''
-      let next = await this.GetRandomWord();
-      console.log(next);
-      if (previous != next) {
-        list_day.push(next);
-      }
-    }
-    list_day = list_day
-    return list_day;
+    list_day = await generateList(5)
+    file.suite_day = list_day;
+    updateJsonFile(file);
+    return file.suite_day;
   } catch (error) {
     console.log(error);
   }
@@ -103,6 +74,27 @@ async function getWordsOfLength(len) {
   } catch (error) {
     console.log(error);
   }
+}
+
+async function generateList(length) {
+  let list_day = []
+  for (let i = 0; i < length; i++) {
+    let previous = list_day[i - 1] ? list_day[i - 1] : ''
+    let next = await GetRandomWord();
+    console.log(next);
+    if (previous != next) {
+      list_day.push(next);
+    }
+  }
+  return list_day;
+}
+
+function updateJsonFile(data) {
+  fs.writeFile(fileName, JSON.stringify(data), function writeJSON(err) {
+    if (err) return console.log(err);
+    console.log(JSON.stringify(data));
+    console.log('writing to ' + fileName);
+  });
 }
 
 module.exports = {
