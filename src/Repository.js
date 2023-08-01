@@ -1,8 +1,6 @@
-const json = require('./words.json');
-const today = require('./today.json');
-
+const json = require('./data/words.json');
 const fs = require('fs');
-const fileName = './today.json';
+const fileName = './data/save.json';
 const file = require(fileName);
 
 
@@ -25,7 +23,7 @@ async function GetRandomWord() {
 
 async function getWordOfTheDay() {
   try {
-    return today.day;
+    return file.day;
   } catch (error) {
     console.log(error);
   }
@@ -43,7 +41,7 @@ async function generateWordOfTheDay() {
 
 async function getListOfTheDay() {
   try {
-    return today.suite_day;
+    return file.suite_day;
   } catch (error) {
     console.log(error);
   }

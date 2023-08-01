@@ -1,5 +1,5 @@
 const express = require('express');
-const Repository = require('./Repository');
+const Repository = require('./src/Repository');
 const path = require('path');
 const cors = require('cors');
 const app = express();
