@@ -1,4 +1,4 @@
-  const json = require('./words.json');
+  const json = require('./data/words.json');
 
 word_day =''
 day = ''
