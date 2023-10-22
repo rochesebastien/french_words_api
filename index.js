@@ -25,7 +25,26 @@ app.get('/word', authenticateToken, async (req, res) => {
 // get word of the day
 app.get('/day', authenticateToken, async (req, res) => {
     let day_word = await Repository.getWordOfTheDay()
+    console.log(day_word);
     res.send(day_word);
+})
+
+// update word of the day / used by vercel cron
+app.get('/day/update', async (req, res) => {
+    let day_word = await Repository.generateWordOfTheDay()
+    res.send(day_word);
+})
+
+// update word of the day / used by vercel cron
+app.get('/day/suite', async (req, res) => {
+    let suite_day = await Repository.getListOfTheDay()
+    res.send(suite_day);
+})
+
+// update word of the day / used by vercel cron
+app.get('/day/suite/update', async (req, res) => {
+    let suite_day = await Repository.generateListOfTheDay()
+    res.send(suite_day);
 })
 
 // get all the words

@@ -19,8 +19,10 @@
             background-image: url('./assets/bg.png');
             background-repeat: no-repeat;
             background-size: cover;
+            background-color: #C50907;
 
         }
+        
         .home{
                display: flex; 
                flex-direction: column;
@@ -41,7 +43,7 @@
             border-radius: 20px;
             border: 2px solid rgba(255, 255, 255, 0.364);
             text-decoration: none;
-            width: 30%;
+            width: 40%;
             transition: 0.3s ease-in-out;
         }
         .request:hover{
@@ -70,13 +72,30 @@
         .link img{
             width: 48px;
         }
+        @media (max-width: 800px) { 
+
+            #logo{
+                width: 50%;
+            }
+            .request{
+                width: 80%;
+            }
+            .desc_req{
+                text-align: center;
+            }
+        }
     </style>
     <div class="home">
-        <img src="./assets/logo.svg" alt="" srcset="">
+        <img id="logo" src="./assets/logo.svg" alt="" srcset="">
         <a href="/day" class="request">
             <span class="type_req get">GET</span>
             <span class="url">/day</span>
             <span class="desc_req">Get word of the day</span>
+        </a>
+        <a href="/day/suite" class="request">
+            <span class="type_req get">GET</span>
+            <span class="url">/day/suite</span>
+            <span class="desc_req">Get suite of words of the day</span>
         </a>
         <a href="/words" class="request">
             <span class="type_req get">GET</span>
@@ -87,11 +106,6 @@
             <span class="type_req get">GET</span>
             <span class="url">/word/:length</span>
             <span class="desc_req">Get word(s) who have the same length</span>
-        </a>
-        <a href="/day/suite" class="request">
-            <span class="type_req get">GET</span>
-            <span class="url">/day/suite</span>
-            <span class="desc_req">Get suite of words of the day</span>
         </a>
         <p class="link">👋 - Roche Sébastien -  <a href="https://github.com/rochesebastien/french_words_api" target="_blank"><img src="./assets/github.svg" alt=""></a></p>
     </div>
