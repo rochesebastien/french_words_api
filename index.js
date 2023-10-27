@@ -30,7 +30,7 @@ app.get('/day', authenticateToken, async (req, res) => {
 })
 
 // update word of the day / used by vercel cron
-app.get('/day/update', async (req, res) => {
+app.patch('/day/update', async (req, res) => {
     let day_word = await Repository.generateWordOfTheDay()
     res.send(day_word);
 })
@@ -42,8 +42,8 @@ app.get('/day/suite', async (req, res) => {
 })
 
 // update word of the day / used by vercel cron
-app.get('/day/suite/update', async (req, res) => {
-    let suite_day = await Repository.generateListOfTheDay()
+app.patch('/day/suite/update', async (req, res) => {
+    let suite_day = await Repository.setListOfTheDay()
     res.send(suite_day);
 })
 

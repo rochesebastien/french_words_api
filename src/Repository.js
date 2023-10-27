@@ -21,6 +21,23 @@ async function GetRandomWord() {
   }
 }
 
+
+async function getWordsOfLength(len) {
+  try {
+    let length = len;
+    let word_list = [];
+    json.words.forEach(word => {
+      if (word.length == length) {
+        word_list.push(word);
+      }
+    });
+    return word_list;
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function getWordOfTheDay() {
   try {
     return file.day;
@@ -29,7 +46,7 @@ async function getWordOfTheDay() {
   }
 }
 
-async function generateWordOfTheDay() {
+async function setWordOfTheDay() {
   try {
     file.day = await GetRandomWord();
     updateJsonFile(file);
@@ -47,28 +64,12 @@ async function getListOfTheDay() {
   }
 }
 
-async function generateListOfTheDay() {
+async function setListOfTheDay() {
   try {
     list_day = await generateList(5)
     file.suite_day = list_day;
     updateJsonFile(file);
     return file.suite_day;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-async function getWordsOfLength(len) {
-  try {
-    let length = len;
-    let word_list = [];
-    json.words.forEach(word => {
-      if (word.length == length) {
-        word_list.push(word);
-      }
-    });
-    return word_list;
-
   } catch (error) {
     console.log(error);
   }
@@ -101,6 +102,6 @@ module.exports = {
   getAllWords,
   getWordsOfLength,
   getWordOfTheDay,
-  generateWordOfTheDay,
-  generateListOfTheDay
+  setWordOfTheDay,
+  setListOfTheDay
 }
