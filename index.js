@@ -1,6 +1,6 @@
 const express = require('express');
 const Repository = require('./src/Repository');
-const { authenticateToken, getToken  } = require('./src/middlewares/Middleware'); // Middleware authentification
+const { authenticateToken, getToken } = require('./src/middlewares/Middleware'); // Middleware authentification
 const path = require('path');
 const cors = require('cors');
 const app = express();
@@ -18,53 +18,85 @@ app.get("/", (req, res) => {
 
 // get a random word
 app.get('/word', authenticateToken, async (req, res) => {
-    let random = await Repository.GetRandomWord()
-    res.send(random);
+    try {
+        let random = await Repository.GetRandomWord()
+        res.send(random);
+    } catch (error) {
+        res.status(400).send(error);
+    }
 })
 
 // get word of the day
-app.get('/day', authenticateToken, async (req, res) => {
-    let day_word = await Repository.getWordOfTheDay()
-    console.log(day_word);
-    res.send(day_word);
+app.get('/day/word', authenticateToken, async (req, res) => {
+    try {
+        let day_word = await Repository.getWordOfTheDay()
+        console.log(day_word);
+        res.status(200).send(day_word);
+    } catch (error) {
+        res.status(400).send(error);
+    }
 })
 
-// update word of the day / used by vercel cron
-app.patch('/day/update', async (req, res) => {
-    let day_word = await Repository.generateWordOfTheDay()
-    res.send(day_word);
+// update word of the day / used on cron
+app.patch('/day/word/update', async (req, res) => {
+    try {
+        let day_word = await Repository.setWordOfTheDay()
+        res.status(200).send(day_word);
+    } catch (error) {
+        res.status(400).send(error);
+    }
 })
 
-// update word of the day / used by vercel cron
+// update word of the day / used on cron
 app.get('/day/suite', async (req, res) => {
-    let suite_day = await Repository.getListOfTheDay()
-    res.send(suite_day);
+    try {
+        let suite_day = await Repository.getListOfTheDay()
+        res.status(200).send(suite_day);
+    } catch (error) {
+        res.status(400).send(error);
+    }
 })
 
 // update word of the day / used by vercel cron
 app.patch('/day/suite/update', async (req, res) => {
-    let suite_day = await Repository.setListOfTheDay()
-    res.send(suite_day);
+    try {
+        let suite_day = await Repository.setListOfTheDay()
+        res.status(200).send(suite_day);
+    } catch (error) {
+        res.status(400).send(error);
+    }
 })
 
 // get all the words
 app.get('/words', authenticateToken, async (req, res) => {
-    let words = await Repository.getAllWords()
-    res.send(words);
+    try {
+        let words = await Repository.getAllWords()
+        res.status(200).send(words);
+    } catch (error) {
+        res.status(400).send(error);
+    }
 })
 
 // get the word(s) who have the same length
 app.get('/word/:length', authenticateToken, async (req, res) => {
-    let length = req.params.length
-    console.log(length);
-    let words = await Repository.getWordsOfLength(length)
-    res.send(words);
+    try {
+        let length = req.params.length
+        console.log(length);
+        let words = await Repository.getWordsOfLength(length)
+        res.status(200).send(words);
+    } catch (error) {
+        res.status(400).send(error);
+    }
 })
 
 // get the token if the features is on
 app.get('/token', async (req, res) => {
-    const token = getToken(); 
-    res.send(token);
+    try {
+        const token = getToken();
+        res.status(200).send(token);
+    } catch (error) {
+        res.status(400).send(error);
+    }
 })
 
 // Putting the API on port 3000

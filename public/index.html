@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
     <title>French words API</title>
 </head>
+
 <body>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
-        *{
+
+        * {
             padding: 0;
             margin: 0;
         }
-        body{
+
+        body {
             width: 100%;
             height: 100vh;
             background-image: url('./assets/bg.png');
@@ -22,18 +26,19 @@
             background-color: #C50907;
 
         }
-        
-        .home{
-               display: flex; 
-               flex-direction: column;
-               justify-content: center;
-               align-items: center;
-               gap: 1rem;
-               background: rgba(0, 0, 0, 0.221);
-               width: 100%;
-               height: 100%;
+
+        .home {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.221);
+            width: 100%;
+            height: 100%;
         }
-        .request{
+
+        .request {
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -46,41 +51,51 @@
             width: 40%;
             transition: 0.3s ease-in-out;
         }
-        .request:hover{
+
+        .request:hover {
             border: 2px solid rgb(19, 0, 127);
         }
-        .type_req{
+
+        .type_req {
             font-size: 1.5rem;
 
         }
-        .url{
+
+        .url {
             color: rgb(16, 7, 67);
         }
-        .desc_req{
+
+        .desc_req {
             color: rgb(255, 255, 255);
             float: right;
         }
-        .get{
+
+        .get {
             color: #00ff00;
         }
-        .link{
+
+        .link {
             display: flex;
             align-items: center;
             font-family: 'Montserrat', sans-serif;
             gap: 0.4rem;
         }
-        .link img{
+
+        .link img {
             width: 48px;
         }
-        @media (max-width: 800px) { 
 
-            #logo{
+        @media (max-width: 800px) {
+
+            #logo {
                 width: 50%;
             }
-            .request{
+
+            .request {
                 width: 80%;
             }
-            .desc_req{
+
+            .desc_req {
                 text-align: center;
             }
         }
@@ -107,7 +122,9 @@
             <span class="url">/word/:length</span>
             <span class="desc_req">Get word(s) who have the same length</span>
         </a>
-        <p class="link">👋 - Roche Sébastien -  <a href="https://github.com/rochesebastien/french_words_api" target="_blank"><img src="./assets/github.svg" alt=""></a></p>
+        <p class="link">👋 - Roche Sébastien - <a href="https://github.com/rochesebastien/french_words_api"
+                target="_blank"><img src="./assets/github.svg" alt=""></a></p>
     </div>
 </body>
+
 </html>

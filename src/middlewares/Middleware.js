@@ -15,8 +15,8 @@ function authenticateToken(req, res, next) {
 
 
 function getToken() {
-    // jwt_token = {"token": jwt.sign({ admin: "quoicouamin" }, process.env.API_SECRET_KEY)}
-    jwt_token = {"token":"If you want to access tihs API, you need to ask for a token on : https://github.com/rochesebastien"}
+    jwt_token = {"token": jwt.sign({ admin: "quoicouamin" }, process.env.API_SECRET_KEY)}
+    // jwt_token = {"token":"If you want to access tihs API, you need to ask for a token on : https://github.com/rochesebastien"}
     return jwt_token;
 }
 
