@@ -102,9 +102,24 @@
     </style>
     <div class="home">
         <img id="logo" src="./assets/logo.svg" alt="" srcset="">
+        <a href="/words" class="request">
+            <span class="type_req get">GET</span>
+            <span class="url">/words</span>
+            <span class="desc_req">Get all the french words</span>
+        </a>
+        <a href="/word" class="request">
+            <span class="type_req get">GET</span>
+            <span class="url">/word/</span>
+            <span class="desc_req">Get a random french word</span>
+        </a>
+        <a href="/word/6" class="request">
+            <span class="type_req get">GET</span>
+            <span class="url">/word/:length</span>
+            <span class="desc_req">Get word(s) who have the same length</span>
+        </a>
         <a href="/day" class="request">
             <span class="type_req get">GET</span>
-            <span class="url">/day</span>
+            <span class="url">/day/word</span>
             <span class="desc_req">Get word of the day</span>
         </a>
         <a href="/day/suite" class="request">
@@ -112,16 +127,8 @@
             <span class="url">/day/suite</span>
             <span class="desc_req">Get suite of words of the day</span>
         </a>
-        <a href="/words" class="request">
-            <span class="type_req get">GET</span>
-            <span class="url">/words</span>
-            <span class="desc_req">Get all the french words</span>
-        </a>
-        <a href="/word/6" class="request">
-            <span class="type_req get">GET</span>
-            <span class="url">/word/:length</span>
-            <span class="desc_req">Get word(s) who have the same length</span>
-        </a>
+
+
         <p class="link">👋 - Roche Sébastien - <a href="https://github.com/rochesebastien/french_words_api"
                 target="_blank"><img src="./assets/github.svg" alt=""></a></p>
     </div>

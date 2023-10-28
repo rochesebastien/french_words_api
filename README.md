@@ -6,7 +6,7 @@
 [![](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com)
 
 
-🎯 API URL - https://french-words-api.vercel.app
+🎯 API URL - https://french-words-api.onrender.com/
 
 This API gives you access to all French language words (without accent).  
 It was made for another personal project that you can see here:
@@ -52,8 +52,9 @@ npm run dev
  ```bash
 npm run start
 ```
-# Copyright
-You are free to download this API for your project, but if you do it, please credits me somewhere and link to this repository. Thanks you
+# Copyright & Token
+You are free to download this API for your project, but if you do it, please credits me somewhere and link to this repository.   
+To have access to the API you need to message me for a token access !
 
 ---
 Roche Sébastien - 2023
