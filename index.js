@@ -15,9 +15,18 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// get all the words
+app.get('/words', async (req, res) => {
+    try {
+        let words = await Repository.getAllWords()
+        res.status(200).send(words);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+})
 
 // get a random word
-app.get('/word', authenticateToken, async (req, res) => {
+app.get('/word', async (req, res) => {
     try {
         let random = await Repository.GetRandomWord()
         res.send(random);
@@ -38,7 +47,7 @@ app.get('/day/word', authenticateToken, async (req, res) => {
 })
 
 // update word of the day / used on cron
-app.patch('/day/word/update', async (req, res) => {
+app.patch('/day/word/update',  async (req, res) => {
     try {
         let day_word = await Repository.setWordOfTheDay()
         res.status(200).send(day_word);
@@ -48,7 +57,7 @@ app.patch('/day/word/update', async (req, res) => {
 })
 
 // update word of the day / used on cron
-app.get('/day/suite', async (req, res) => {
+app.get('/day/suite', authenticateToken, async (req, res) => {
     try {
         let suite_day = await Repository.getListOfTheDay()
         res.status(200).send(suite_day);
@@ -62,16 +71,6 @@ app.patch('/day/suite/update', async (req, res) => {
     try {
         let suite_day = await Repository.setListOfTheDay()
         res.status(200).send(suite_day);
-    } catch (error) {
-        res.status(400).send(error);
-    }
-})
-
-// get all the words
-app.get('/words', authenticateToken, async (req, res) => {
-    try {
-        let words = await Repository.getAllWords()
-        res.status(200).send(words);
     } catch (error) {
         res.status(400).send(error);
     }
