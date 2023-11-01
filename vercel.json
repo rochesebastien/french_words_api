@@ -13,13 +13,13 @@
       }
     ],
     "crons": [
-        {
-            "path": "/day/word/update",
-            "schedule": "0 * * * *"
-        },
-        {
-            "path": "/day/suite/update",
-            "schedule": "0 * * * *"
-        }
-    ]
+      {
+          "path": "/day/word/update",
+          "schedule": "7 20 * * *"
+      },
+      {
+          "path": "/day/suite/update",
+          "schedule": "7 20 * * *"
+      }
+  ]
   }
