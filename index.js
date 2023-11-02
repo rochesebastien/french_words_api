@@ -1,5 +1,6 @@
 const express = require('express');
-const Repository = require('./src/Repository');
+const WordRepository = require('./src/controllers/WordRepository');
+const SqliteRepository = require('./src/controllers/SqliteRepository');
 const { authenticateToken, getToken } = require('./src/middlewares/Middleware'); // Middleware authentification
 const path = require('path');
 const cors = require('cors');
@@ -48,9 +49,14 @@ app.get('/day/word', authenticateToken, async (req, res) => {
 
 // update word of the day / used on cron
 app.patch('/day/word/update',  async (req, res) => {
+    console.log("saluuutttt");
     try {
-        let day_word = await Repository.setWordOfTheDay()
-        res.status(200).send(day_word);
+        let test = new SqliteRepository()
+        test.insertWordDay("salut")
+        // let random = await Repository.GetRandomWord()
+        console.log(repository);
+
+        // res.status(200).send(suite_day);
     } catch (error) {
         res.status(400).send(error);
     }
@@ -59,7 +65,6 @@ app.patch('/day/word/update',  async (req, res) => {
 // update word of the day / used on cron
 app.get('/day/suite', authenticateToken, async (req, res) => {
     try {
-        let suite_day = await Repository.getListOfTheDay()
         res.status(200).send(suite_day);
     } catch (error) {
         res.status(400).send(error);

@@ -1,6 +1,6 @@
-const json = require('./data/words.json');
+const json = require('../data/save.json');
 const fs = require('fs');
-const fileName = './data/save.json';
+const fileName = '../data/save.json';
 const file = require(fileName);
 
 
