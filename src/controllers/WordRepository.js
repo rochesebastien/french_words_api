@@ -1,8 +1,4 @@
-const json = require('../data/save.json');
-const fs = require('fs');
-const fileName = '../data/save.json';
-const file = require(fileName);
-
+const json = require('../data/words.json');
 
 async function getAllWords() {
   try {
@@ -38,49 +34,11 @@ async function getWordsOfLength(len) {
   }
 }
 
-async function getWordOfTheDay() {
-  try {
-    return file.day;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-async function setWordOfTheDay() {
-  try {
-    file.day = await GetRandomWord();
-    updateJsonFile(file);
-    return file.day;
-  } catch (error) {
-    return error;
-  }
-}
-
-async function getListOfTheDay() {
-  try {
-    return file.suite_day;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-async function setListOfTheDay() {
-  try {
-    list_day = await generateList(5)
-    file.suite_day = list_day;
-    updateJsonFile(file);
-    return file.suite_day;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 async function generateList(length) {
   let list_day = []
   for (let i = 0; i < length; i++) {
     let previous = list_day[i - 1] ? list_day[i - 1] : ''
     let next = await GetRandomWord();
-    console.log(next);
     if (previous != next) {
       list_day.push(next);
     }
@@ -88,20 +46,9 @@ async function generateList(length) {
   return list_day;
 }
 
-function updateJsonFile(data) {
-  fs.writeFile(fileName, JSON.stringify(data), function writeJSON(err) {
-    if (err) return console.log(err);
-    console.log(JSON.stringify(data));
-    console.log('writing to ' + fileName);
-  });
-}
-
 module.exports = {
   GetRandomWord,
-  getListOfTheDay,
   getAllWords,
   getWordsOfLength,
-  getWordOfTheDay,
-  setWordOfTheDay,
-  setListOfTheDay
+  generateList
 }

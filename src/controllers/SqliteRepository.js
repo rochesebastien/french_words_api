@@ -1,16 +1,19 @@
 const sqlite3 = require('sqlite3').verbose()
 
 class SqliteRepository {
-    constructor() {
-        this.db = new sqlite3.Database('../data/save.db', (err) => {
+    db
+
+    constructor(databasePath) {
+        this.db = new sqlite3.Database(databasePath, (err) => {
             if (err) {
                 console.error('Dev : Erreur connexion database : ', err.message)
+                return err
             } else {
                 console.log('Dev : Connexion à la base de donnée ok !')
+                return true
             }
 
         })
-        this.createTables();
     }
 
     createTables() {
@@ -20,7 +23,7 @@ class SqliteRepository {
         });
     }
 
-    getAllWordDay() {
+    getWordDay() {
         return new Promise((resolve, reject) => {
             this.db.all(`SELECT * FROM day`, (err, rows) => {
                 if (err) {
@@ -33,6 +36,7 @@ class SqliteRepository {
     }
 
     insertWordDay(mot) {
+        console.log(mot);
         return new Promise((resolve, reject) => {
             const stmt = this.db.prepare(`INSERT INTO day (mot) VALUES (?)`);
             stmt.run(mot, function (err) {
@@ -46,32 +50,57 @@ class SqliteRepository {
         });
     }
 
+    getSuiteDay() {
+        return new Promise((resolve, reject) => {
+            this.db.all(`SELECT * FROM suite`, (err, rows) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            });
+        });
+    }
+
+    stmtSuiteDay(word_suite) {
+        return new Promise((resolve, reject) => {
+            const stmt = this.db.prepare(`INSERT INTO suite (mot) VALUES (?)`);
+            stmt.run(word_suite, function (err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(this.lastID);
+                }
+                stmt.finalize();
+            });
+        });
+    }
+
+    insertSuiteDay(suite){
+        return new Promise((resolve, reject) => {
+            suite.forEach(word => {
+                this.stmtSuiteDay(word);
+            });
+            resolve(suite);
+        });
+    
+    }
+
+    clearTable(table) {
+        return new Promise((resolve, reject) => {
+            this.db.run(`DELETE FROM ${table}`, function (err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(`Toutes les données de la table ${table} ont été supprimées.`);
+                }
+            });
+        });
+    }
+
     close() {
         this.db.close();
     }
 }
 
 module.exports = SqliteRepository
-
-// // Exemple d'utilisation
-// const dbPath = 'ma_base_de_donnees.db';
-// const repository = new SqliteRepository(dbPath);
-
-// (async () => {
-//     try {
-//         await repository.insertIntoTable('suite', 'Mot1');
-//         await repository.insertIntoTable('suite', 'Mot2');
-//         await repository.insertIntoTable('day', 'MotA');
-//         await repository.insertIntoTable('day', 'MotB');
-
-//         const allSuite = await repository.getAllFromTable('suite');
-//         const allDay = await repository.getAllFromTable('day');
-
-//         console.log('Contenu de la table "suite":', allSuite);
-//         console.log('Contenu de la table "day":', allDay);
-//     } catch (error) {
-//         console.error('Erreur :', error);
-//     } finally {
-//         repository.close();
-//     }
-// })();

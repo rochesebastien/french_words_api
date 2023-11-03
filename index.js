@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 // get all the words
 app.get('/words', async (req, res) => {
     try {
-        let words = await Repository.getAllWords()
+        let words = await WordRepository.getAllWords()
         res.status(200).send(words);
     } catch (error) {
         res.status(400).send(error);
@@ -29,7 +29,7 @@ app.get('/words', async (req, res) => {
 // get a random word
 app.get('/word', async (req, res) => {
     try {
-        let random = await Repository.GetRandomWord()
+        let random = await WordRepository.GetRandomWord()
         res.send(random);
     } catch (error) {
         res.status(400).send(error);
@@ -39,9 +39,10 @@ app.get('/word', async (req, res) => {
 // get word of the day
 app.get('/day/word', authenticateToken, async (req, res) => {
     try {
-        let day_word = await Repository.getWordOfTheDay()
-        console.log(day_word);
-        res.status(200).send(day_word);
+        let database = new SqliteRepository('./src/data/save.db')
+        day_word = await database.getWordDay()
+        database.close()
+        res.status(200).send(day_word[0].mot);
     } catch (error) {
         res.status(400).send(error);
     }
@@ -49,32 +50,42 @@ app.get('/day/word', authenticateToken, async (req, res) => {
 
 // update word of the day / used on cron
 app.patch('/day/word/update',  async (req, res) => {
-    console.log("saluuutttt");
     try {
-        let test = new SqliteRepository()
-        test.insertWordDay("salut")
-        // let random = await Repository.GetRandomWord()
-        console.log(repository);
-
-        // res.status(200).send(suite_day);
+        let database = new SqliteRepository('./src/data/save.db')
+        database.clearTable("day")
+        let random = await WordRepository.GetRandomWord()
+        database.insertWordDay(random)
+        database.close()
+        res.status(200).send(random);
     } catch (error) {
         res.status(400).send(error);
     }
 })
 
-// update word of the day / used on cron
+// get suite of the day
 app.get('/day/suite', authenticateToken, async (req, res) => {
     try {
+        let database = new SqliteRepository('./src/data/save.db')
+        suite_req = await database.getSuiteDay()
+        suite_day = []
+        suite_req.forEach(el => {
+            suite_day.push(el.mot)
+        });
+        database.close()
         res.status(200).send(suite_day);
     } catch (error) {
         res.status(400).send(error);
     }
 })
 
-// update word of the day / used by vercel cron
+// update suite of the day / used by vercel cron
 app.patch('/day/suite/update', async (req, res) => {
     try {
-        let suite_day = await Repository.setListOfTheDay()
+        let suite_day = await WordRepository.generateList(5)
+        let database = new SqliteRepository('./src/data/save.db')
+        database.clearTable("suite")
+        database.insertSuiteDay(suite_day)
+        database.close()
         res.status(200).send(suite_day);
     } catch (error) {
         res.status(400).send(error);
