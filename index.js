@@ -1,6 +1,7 @@
 const express = require('express');
 const WordRepository = require('./src/controllers/WordRepository');
 const SqliteRepository = require('./src/controllers/SqliteRepository');
+const SupaBaseRepository = require('./src/controllers/SupaBaseRepository');
 const { authenticateToken, getToken } = require('./src/middlewares/Middleware'); // Middleware authentification
 const path = require('path');
 const cors = require('cors');
@@ -109,6 +110,18 @@ app.get('/token', async (req, res) => {
     try {
         const token = getToken();
         res.status(200).send(token);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+})
+
+// test Supabase
+app.get('/supabase', async (req, res) => {
+    try {
+        // console.log(process.env.SUPABASE_URL,process.env.SUPABASE_KEY);
+        let supabase = new SupaBaseRepository(process.env.SUPABASE_URL,process.env.SUPABASE_KEY)
+        let t = supabase.getUrl()
+        res.status(200).send(t);
     } catch (error) {
         res.status(400).send(error);
     }
