@@ -52,7 +52,8 @@ app.get('/day/word', authenticateToken, async (req, res) => {
 // update word of the day / used on cron
 app.patch('/day/word/update',  async (req, res) => {
     try {
-        let database = new SqliteRepository('./src/data/save.db')
+        // let database = new SqliteRepository('./src/data/save.db') //Sqlite Database
+        let database = new SupaBaseRepository(process.env.SUPABASE_URL, process.env.SUPABASE_KEY) //Supabase Database
         database.clearTable("day")
         let random = await WordRepository.GetRandomWord()
         database.insertWordDay(random)
@@ -120,9 +121,12 @@ app.get('/supabase', async (req, res) => {
     try {
         // console.log(process.env.SUPABASE_URL,process.env.SUPABASE_KEY);
         let supabase = new SupaBaseRepository(process.env.SUPABASE_URL,process.env.SUPABASE_KEY)
-        let t = supabase.getUrl()
+        let t = supabase.getDay()
+        // let t = supabase.getKey()
+        // let t = supabase.getUrl()
         res.status(200).send(t);
     } catch (error) {
+        console.log(error);
         res.status(400).send(error);
     }
 })
