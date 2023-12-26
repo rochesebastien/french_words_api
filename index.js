@@ -119,12 +119,10 @@ app.get('/token', async (req, res) => {
 // test Supabase
 app.get('/supabase', async (req, res) => {
     try {
-        // console.log(process.env.SUPABASE_URL,process.env.SUPABASE_KEY);
         let supabase = new SupaBaseRepository(process.env.SUPABASE_URL,process.env.SUPABASE_KEY)
-        let t = supabase.getDay()
-        // let t = supabase.getKey()
-        // let t = supabase.getUrl()
-        res.status(200).send(t);
+        let day = await supabase.getDay()
+        console.log("get day : "+day[0].word);
+        res.status(200).send(day);
     } catch (error) {
         console.log(error);
         res.status(400).send(error);
