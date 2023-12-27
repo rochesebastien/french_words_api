@@ -6,10 +6,10 @@ require('dotenv').config();
 
 
 // Routes
-const AuthRouter = require('./src/routes/auth')
-const DayRouter = require('./src/routes/day')
-const SuiteRouter = require('./src/routes/suite')
-const WordRouter = require('./src/routes/word')
+const AuthRouter = require('./src/routers/auth')
+const DayRouter = require('./src/routers/day')
+const SuiteRouter = require('./src/routers/suite')
+const WordRouter = require('./src/routers/word')
 
 app.use(cors()); // avoid cors errors
 app.use(express.json());
@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// routers
 app.use('/auth', AuthRouter);
 app.use('/day', DayRouter);
 app.use('/suite', SuiteRouter);
