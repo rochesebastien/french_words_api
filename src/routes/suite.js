@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const { authenticateToken } = require('../middlewares/Middleware'); // Middleware authentification
 
 // get suite of the day
 router.get('/day/suite', authenticateToken, async (req, res) => {

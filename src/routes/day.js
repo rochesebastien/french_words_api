@@ -3,8 +3,8 @@ const router = express.Router();
 require('dotenv').config();
 
 
-const { authenticateToken } = require('./src/middlewares/Middleware'); // Middleware authentification
-const SupaBaseRepository = require('./repository/SupaBaseRepository');
+const { authenticateToken } = require('../middlewares/Middleware'); // Middleware authentification
+const SupaBaseRepository = require('../controllers/SupaBaseRepository');
 
 // get word of the day
 router.get('/word', authenticateToken, async (req, res) => {

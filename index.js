@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 app.use('/auth', AuthRouter);
 app.use('/day', DayRouter);
 app.use('/suite', SuiteRouter);
-app.use('/', WordRouter);
+app.use('/words/', WordRouter);
 
 
 // test Supabase
@@ -38,6 +38,7 @@ app.get('/supabase', async (req, res) => {
         res.status(400).send(error);
     }
 })
+
 
 // Putting the API on port 3000
 app.listen(process.env.API_PORT || 3000, () => {
