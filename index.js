@@ -27,20 +27,6 @@ app.use('/day/suite', SuiteRouter);
 app.use('/words/', WordRouter);
 
 
-// test Supabase
-app.get('/supabase', async (req, res) => {
-    try {
-        let supabase = new SupaBaseRepository(process.env.SUPABASE_URL,process.env.SUPABASE_KEY)
-        let day = await supabase.getDay()
-        console.log("get day : "+day[0].word);
-        res.status(200).send(day);
-    } catch (error) {
-        console.log(error);
-        res.status(400).send(error);
-    }
-})
-
-
 // Putting the API on port 3000
 app.listen(process.env.API_PORT || 3000, () => {
     console.log(`API is running on port ${process.env.API_PORT}`);
