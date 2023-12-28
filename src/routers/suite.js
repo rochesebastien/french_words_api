@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
+require('dotenv').config();
+
+
 const { authenticateToken } = require('../middlewares/Middleware'); // Middleware authentification
+const SupaBaseRepository = require('../controllers/SupaBaseRepository');
+const WordRepository = require('../controllers/WordRepository');
 
 // get suite of the day
-router.get('/day/suite', authenticateToken, async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
     try {
-        let database = new SqliteRepository('./src/data/save.db')
-        suite_req = await database.getSuiteDay()
-        suite_day = []
-        suite_req.forEach(el => {
-            suite_day.push(el.mot)
-        });
-        database.close()
+        let database = new SupaBaseRepository(process.env.SUPABASE_URL, process.env.SUPABASE_KEY) //Supabase Database
+        suite_day = await database.getSuiteDay()
         res.status(200).send(suite_day);
     } catch (error) {
         res.status(400).send(error);
@@ -19,14 +19,17 @@ router.get('/day/suite', authenticateToken, async (req, res) => {
 })
 
 // update suite of the day / used by vercel cron
-router.patch('/day/suite/update', async (req, res) => {
+router.patch('/update', async (req, res) => {
     try {
+        let database = new SupaBaseRepository(process.env.SUPABASE_URL, process.env.SUPABASE_KEY) //Supabase Database
+        await database.clearAllWords('suite')
         let suite_day = await WordRepository.generateList(5)
-        let database = new SqliteRepository('./src/data/save.db')
-        database.clearTable("suite")
-        database.insertSuiteDay(suite_day)
-        database.close()
-        res.status(200).send(suite_day);
+        let insert = await database.insertSuiteDay(suite_day)
+        if(insert){
+            res.status(200).send(suite_day);
+        } else {
+            res.status(200).send("Erreur lors de l'insertion de la nouvelle suite");
+        }
     } catch (error) {
         res.status(400).send(error);
     }

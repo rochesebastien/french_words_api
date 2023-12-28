@@ -22,8 +22,8 @@ app.get("/", (req, res) => {
 
 // routers
 app.use('/auth', AuthRouter);
-app.use('/day', DayRouter);
-app.use('/suite', SuiteRouter);
+app.use('/day/word', DayRouter);
+app.use('/day/suite', SuiteRouter);
 app.use('/words/', WordRouter);
 
 

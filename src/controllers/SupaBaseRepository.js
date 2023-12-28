@@ -21,6 +21,7 @@ class SupaBaseRepository {
             if (deleted_error) {
                 return false;
             } else {
+                console.log(`Table ${table_name} cleared!`);
                 return true;
             }
         } catch (e) {
@@ -49,6 +50,26 @@ class SupaBaseRepository {
         }
     }
 
+    async insertSuiteDay(new_suite) {
+        try {
+            new_suite.forEach(async (word) => {
+                console.log("looped :",word);
+                const { data, error } = await this.supabase
+                .from('suite')
+                .insert([
+                    { 'word': word },
+                ])
+            if (error) {
+                console.error('Error inserting day: ', error.message);
+            }
+            });
+            return true;
+           
+        } catch (e) {
+            console.error('Error:', e.message);
+        }
+    }
+
     async getWordDay() {
         try {
             let { data: day, error } = await this.supabase
@@ -58,6 +79,22 @@ class SupaBaseRepository {
                 console.error('Error fetching day:', error.message);
             } else {
                 console.log('Fetched day:', day);
+                return day
+            }
+        } catch (e) {
+            console.error('Error:', e.message);
+        }
+    }
+
+    async getSuiteDay() {
+        try {
+            let { data: day, error } = await this.supabase
+                .from('suite')
+                .select('*');
+            if (error) {
+                console.error('Error fetching suite:', error.message);
+            } else {
+                console.log('Fetched suite:', day);
                 return day
             }
         } catch (e) {
