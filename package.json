@@ -1,7 +1,7 @@
 {
-  "name": "frenchdictionnaryapi",
+  "name": "french_words_api",
   "version": "1.0.0",
-  "description": "API for french words",
+  "description": "API for french words by Roche Sébastien",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
