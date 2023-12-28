@@ -5,6 +5,7 @@ const WordRepository = require('../controllers/WordRepository');
 
 // get all the words
 router.get('/', async (req, res) => {
+    console.log(` \x1B[43m[LOGS API] : Route /words called \x1B[0m`)
     try {
         let words = await WordRepository.getAllWords()
         res.status(200).send(words);
@@ -15,6 +16,7 @@ router.get('/', async (req, res) => {
 
 // get a random word
 router.get('/random/', async (req, res) => {
+    console.log(` \x1B[43m[LOGS API] : Route /words/random called \x1B[0m`)
     try {
         let random = await WordRepository.GetRandomWord()
         res.send(random);
@@ -25,6 +27,7 @@ router.get('/random/', async (req, res) => {
 
 // get a random word with lengh
 router.get('/random/:length', async (req, res) => {
+    console.log(` \x1B[43m[LOGS API] : Route /words/random/:length called \x1B[0m`)
     try {
         let length = parseInt(req.params.length);
         if(!length){
@@ -42,6 +45,7 @@ router.get('/random/:length', async (req, res) => {
 
 // get the word(s) who have the same length
 router.get('/:length', async (req, res) => {
+    console.log(` \x1B[43m[LOGS API] : Route /words/:length called \x1B[0m`)
     try {
         let length = parseInt(req.params.length, 10); // Convertir la chaîne en nombre
         let words = await WordRepository.getWordsOfLength(length);

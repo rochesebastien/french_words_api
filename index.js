@@ -29,7 +29,8 @@ app.use('/words/', WordRouter);
 
 // Putting the API on port 3000
 app.listen(process.env.API_PORT || 3000, () => {
-    console.log(`API is running on port ${process.env.API_PORT}`);
+    console.log('\x1B[45m Welcome to \x1B[1m French Words API v1 ! \x1b[0m  ');
+    console.log(`API is running on port \x1B[42m\x1B[31m ${process.env.API_PORT} \x1B[0m \x1B[0m `);
 })
 
 // Export the Express API

@@ -9,6 +9,7 @@ const WordRepository = require('../controllers/WordRepository');
 
 // get suite of the day
 router.get('/', authenticateToken, async (req, res) => {
+    console.log(` \x1B[43m[LOGS API] : Route /day/suite called \x1B[0m`)
     try {
         let database = new SupaBaseRepository(process.env.SUPABASE_URL, process.env.SUPABASE_KEY) //Supabase Database
         suite_day = await database.getSuiteDay()
@@ -21,6 +22,7 @@ router.get('/', authenticateToken, async (req, res) => {
 // update suite of the day / used by vercel cron
 router.patch('/update', async (req, res) => {
     try {
+        console.log(` \x1B[43m[LOGS API] : Route /day/suite/update called \x1B[0m`)
         let database = new SupaBaseRepository(process.env.SUPABASE_URL, process.env.SUPABASE_KEY) //Supabase Database
         await database.clearAllWords('suite')
         let suite_day = await WordRepository.generateList(5)
