@@ -60,4 +60,4 @@ You are free to download this API for your project, but if you do it, please cre
 To have access to the API you need to message me for a token access !
 
 ---
-Roche Sébastien - 2023
+Roche Sébastien - 2023 
