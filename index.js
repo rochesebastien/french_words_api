@@ -22,28 +22,17 @@ app.get("/", (req, res) => {
 
 // routers
 app.use('/auth', AuthRouter);
-app.use('/day', DayRouter);
-app.use('/suite', SuiteRouter);
+app.use('/day/word', DayRouter);
+app.use('/day/suite', SuiteRouter);
 app.use('/words/', WordRouter);
-
-
-// test Supabase
-app.get('/supabase', async (req, res) => {
-    try {
-        let supabase = new SupaBaseRepository(process.env.SUPABASE_URL,process.env.SUPABASE_KEY)
-        let day = await supabase.getDay()
-        console.log("get day : "+day[0].word);
-        res.status(200).send(day);
-    } catch (error) {
-        console.log(error);
-        res.status(400).send(error);
-    }
-})
 
 
 // Putting the API on port 3000
 app.listen(process.env.API_PORT || 3000, () => {
-    console.log(`API is running on port ${process.env.API_PORT}`);
+    console.log('------');
+    console.log('\x1B[45m Welcome to \x1B[1m French Words API v1 ! \x1b[0m  ');
+    console.log(`API is running on port \x1B[42m\x1B[31m ${process.env.API_PORT} \x1B[0m \x1B[0m `);
+    console.log('------');
 })
 
 // Export the Express API

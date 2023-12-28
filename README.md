@@ -6,7 +6,7 @@
 [![](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com)
 
 
-🎯 API URL - https://french-words-api.onrender.com/
+🎯 API URL - https://french-words-api.vercel.app/
 
 This API gives you access to all French language words (without accent).  
 It was made for another personal project that you can see here:
@@ -18,9 +18,11 @@ It was made for another personal project that you can see here:
 # Features
 
 - Can get all French words
+- Can get all French words (with specific length)
 - Can get a random word among all French words
-- Can get a word that changes every 12 hours
-- Can get a sequence of words that changes every 12 hours
+- Can get a random word among all French words (with specific length)
+- Can get a word that changes every 12 hours [Private : Token required]
+- Can get a sequence of words that changes every 12 hours [Private : Token required]
 
 
 
@@ -48,10 +50,11 @@ In this API, you have to type of environnement :
  ```bash
 npm run dev
 ```
-- **PROD** : just using node to start entry file index.js, use it if you are sure that your API will not crash : 
+- **PROD** : just using node to start entry file index.js, use it on production : 
  ```bash
 npm run start
 ```
+
 # Copyright & Token
 You are free to download this API for your project, but if you do it, please credits me somewhere and link to this repository.   
 To have access to the API you need to message me for a token access !

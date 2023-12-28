@@ -17,6 +17,16 @@ async function GetRandomWord() {
   }
 }
 
+async function GetRandomWordWLength(length) {
+  try {
+    const fil_words = await getWordsOfLength(length)
+    const random = Math.floor(Math.random() * fil_words.length);
+    return fil_words[random];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 async function getWordsOfLength(len) {
   try {
@@ -50,5 +60,6 @@ module.exports = {
   GetRandomWord,
   getAllWords,
   getWordsOfLength,
-  generateList
+  generateList,
+  GetRandomWordWLength
 }

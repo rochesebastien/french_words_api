@@ -3,7 +3,6 @@ require('dotenv').config();
 
 function authenticateToken(req, res, next) {
     const token = req.header("Authorization");
-    console.log("azdazdad")
     if (!token) return res.status(401).send('Access denied');
     
     jwt.verify(token, process.env.API_SECRET_KEY , (err) => {
