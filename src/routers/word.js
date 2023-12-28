@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('../middlewares/Middleware');
 const WordRepository = require('../controllers/WordRepository');
 
 // get all the words
