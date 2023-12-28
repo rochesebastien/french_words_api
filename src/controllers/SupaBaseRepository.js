@@ -1,8 +1,5 @@
 
-const { createClient, QueryResult, QueryData, QueryError } = require('@supabase/supabase-js');
-// const supabaseUrl = ""
-// const supabaseKey = process.env.SUPABASE_KEY
-// const supabase = createClient(supabaseUrl, supabaseKey)
+const { createClient } = require('@supabase/supabase-js');
 
 class SupaBaseRepository {
     db_url
@@ -10,36 +7,61 @@ class SupaBaseRepository {
     supabase
 
     constructor(base_url, base_key) {
-        // this.supabase = createClient(base_url, base_key)
         this.db_url = base_url
         this.db_key = base_key
-        // console.log(this.base_url);
+        this.supabase = createClient(base_url,base_key)
     }
 
-    // getUrl() {
-    //     console.log(this.db_url);
-    //     return this.db_url
-    // }
+    async clearWordDay(){
+        try {
+            const { data, error } = await this.supabase
+            .from('day')
+            .select('*')
+            if (error) {
+                console.error('Error deleting day: ', error.message);
+                return false;
+            }
+            if (data) {
+                const { deleted_data, deleted_error } = await this.supabase
+                .from('day')
+                .delete()
+                .eq('id', data[0].id)
+                if(deleted_error){
+                    return false;
+                } else {
+                    console.log("Deleted day : ",data);
+                    return true;
+                }        
+            }
+        } catch (e) {
+            console.error('Error clear :', e.message);
+            return false;
+        }   
+    }
 
-    // getKey() {
-    //     console.log(this.db_url);
-    //     return this.db_key
-    // }
 
-
-    async insertDay() {
-        const { data, error } = await supabase
+    async insertWordDay(new_word) {
+        try {
+            const { data, error } = await this.supabase
             .from('day')
             .insert([
-                { some_column: 'someValue', other_column: 'otherValue' },
+                { 'word': new_word},
             ])
-            .select()
+            .select();
+            if (error) {
+                console.error('Error inserting day: ', error.message);
+            } else {
+                console.log('Inserted day: ', data);
+                return data
+            }
+        } catch (e) {
+            console.error('Error:', e.message);
+        }     
     }
 
-    async getDay() {
+    async getWordDay() {
         try {
-            const supabase = createClient(this.db_url, this.db_key)
-            let { data: day, error } = await supabase
+            let { data: day, error } = await this.supabase
                 .from('day')
                 .select('*');
             if (error) {
