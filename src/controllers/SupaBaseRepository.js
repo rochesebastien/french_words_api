@@ -9,45 +9,35 @@ class SupaBaseRepository {
     constructor(base_url, base_key) {
         this.db_url = base_url
         this.db_key = base_key
-        this.supabase = createClient(base_url,base_key)
+        this.supabase = createClient(base_url, base_key)
     }
 
-    async clearWordDay(){
+    async clearAllWords(table_name) {
         try {
-            const { data, error } = await this.supabase
-            .from('day')
-            .select('*')
-            if (error) {
-                console.error('Error deleting day: ', error.message);
-                return false;
-            }
-            if (data) {
-                const { deleted_data, deleted_error } = await this.supabase
-                .from('day')
+            const {deleted_error } = await this.supabase
+                .from(table_name)
                 .delete()
-                .eq('id', data[0].id)
-                if(deleted_error){
-                    return false;
-                } else {
-                    console.log("Deleted day : ",data);
-                    return true;
-                }        
+                .neq("id", 0)
+            if (deleted_error) {
+                return false;
+            } else {
+                return true;
             }
         } catch (e) {
             console.error('Error clear :', e.message);
             return false;
-        }   
+        }
     }
 
 
     async insertWordDay(new_word) {
         try {
             const { data, error } = await this.supabase
-            .from('day')
-            .insert([
-                { 'word': new_word},
-            ])
-            .select();
+                .from('day')
+                .insert([
+                    { 'word': new_word },
+                ])
+                .select();
             if (error) {
                 console.error('Error inserting day: ', error.message);
             } else {
@@ -56,7 +46,7 @@ class SupaBaseRepository {
             }
         } catch (e) {
             console.error('Error:', e.message);
-        }     
+        }
     }
 
     async getWordDay() {

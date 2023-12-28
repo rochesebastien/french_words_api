@@ -23,7 +23,7 @@ router.get('/word', authenticateToken, async (req, res) => {
 router.patch('/word/update',  async (req, res) => {
     try {
         let database = new SupaBaseRepository(process.env.SUPABASE_URL, process.env.SUPABASE_KEY) //Supabase Database
-        let isDeleted = await database.clearWordDay()
+        let isDeleted = await database.clearAllWords('day')
         if(!isDeleted){
             res.status(400).send("Error when updating : maybe already empty");
         } else {
