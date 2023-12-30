@@ -21,7 +21,7 @@ router.get('/', authenticateToken, async (req, res) => {
 })
 
 // update word of the day / used on cron
-router.get('/update',  async (req, res) => {
+router.patch('/update',  async (req, res) => {
     console.log(` \x1B[43m[LOGS API] : Route /day/word/update called \x1B[0m`)
     try {
         let database = new SupaBaseRepository(process.env.SUPABASE_URL, process.env.SUPABASE_KEY) //Supabase Database
