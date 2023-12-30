@@ -20,7 +20,7 @@ router.get('/', authenticateToken, async (req, res) => {
 })
 
 // update suite of the day / used by vercel cron
-router.patch('/update', async (req, res) => {
+router.get('/update', async (req, res) => {
     try {
         console.log(` \x1B[43m[LOGS API] : Route /day/suite/update called \x1B[0m`)
         let database = new SupaBaseRepository(process.env.SUPABASE_URL, process.env.SUPABASE_KEY) //Supabase Database
