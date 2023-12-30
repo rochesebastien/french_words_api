@@ -15,7 +15,7 @@
   "crons": [
     {
       "path": "/day/word/update",
-      "schedule": "45 5 * * *"
+      "schedule": "0 6 * * *"
     },
     {
       "path": "/day/suite/update",
