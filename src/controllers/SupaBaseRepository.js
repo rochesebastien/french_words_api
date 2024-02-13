@@ -33,10 +33,21 @@ class SupaBaseRepository {
 
     async insertWordDay(new_word) {
         try {
+            let currentTime = new Date().toLocaleString('en-GB', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+            });
             const { data, error } = await this.supabase
                 .from('day')
                 .insert([
-                    { 'word': new_word },
+                    { 
+                        'word': new_word,
+                        'changed_date': String(currentTime),
+                },
                 ])
                 .select();
             if (error) {
@@ -52,16 +63,27 @@ class SupaBaseRepository {
 
     async insertSuiteDay(new_suite) {
         try {
+            let currentTime = new Date().toLocaleString('en-GB', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+            });
             new_suite.forEach(async (word) => {
-                console.log("looped :",word);
                 const { data, error } = await this.supabase
                 .from('suite')
                 .insert([
-                    { 'word': word },
+                    { 
+                        'word': word,
+                        'changed_date': String(currentTime),
+                },
                 ])
             if (error) {
                 console.error('Error inserting day: ', error.message);
             }
+            console.log(`Suite loop : Word '${word}' has been inserted !`);
             });
             return true;
            

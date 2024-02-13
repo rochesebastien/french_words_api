@@ -9,7 +9,8 @@ const WordRepository = require('../controllers/WordRepository');
 
 // get word of the day
 router.get('/', authenticateToken, async (req, res) => {
-    console.log(` \x1B[43m[LOGS API] : Route /day/word called \x1B[0m`)
+    let currentTime = new Date().toLocaleString()
+    console.log(` \x1B[43m[LOGS API] : Route /day/word called (${currentTime})\x1B[0m`)
     try {
         let database = new SupaBaseRepository(process.env.SUPABASE_URL, process.env.SUPABASE_KEY) //Supabase Database
         day_word = await database.getWordDay()
@@ -22,7 +23,8 @@ router.get('/', authenticateToken, async (req, res) => {
 
 // update word of the day / used on cron
 router.get('/update',  async (req, res) => {
-    console.log(` \x1B[43m[LOGS API] : Route /day/word/update called \x1B[0m`)
+    let currentTime = new Date().toLocaleString()
+    console.log(` \x1B[43m[LOGS API] : Route /day/word/update called (${currentTime})\x1B[0m`)
     try {
         let database = new SupaBaseRepository(process.env.SUPABASE_URL, process.env.SUPABASE_KEY) //Supabase Database
         await database.clearAllWords('day')
